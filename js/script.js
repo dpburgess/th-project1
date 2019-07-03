@@ -62,10 +62,22 @@ var quotes = [
 var quoteIntervalId = setInterval(printQuote, 22000);
 var colorIntervalId = setInterval(changeColor, 22000);
 
+var collection = quotes.slice(0);
+
 // uses a random number to get a quote from the quotes array
 function getRandomQuote() {
-  var rand = Math.floor(Math.random() * quotes.length);
-  return quotes[rand];
+
+  // remember that this is run every time a user clicks, so collection will have a length of 0 at some point
+if (collection.length == 0) { 
+  collection = quotes.slice();
+}
+
+while(collection.length > 0) {
+  var rand = Math.floor(Math.random() * collection.length);
+  var quote = collection[rand];
+  collection.splice(rand, 1);
+  return quote;
+  }  
 }
 
 // calls getRandomQuote and writes it to the page with some extra html if the quote object has extra properties
